@@ -12,8 +12,21 @@ jpeg_load(const char *path)
 {
     FILE *fp = fopen(path, "rb");
 
-    if (!fp)
+    if (!fp){
         return NULL;
+	}
+
+	unsigned char sig[2];
+	if (fread(sig, 1, 2, fp) != 2) {
+    		fclose(fp);
+    	return NULL;
+	}
+
+	if (sig[0] != 0xff || sig[1] != 0xd8) {
+    		fclose(fp);
+    	return NULL;
+	}
+rewind(fp);
 
 
     struct jpeg_decompress_struct cinfo;
