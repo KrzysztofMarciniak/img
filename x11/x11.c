@@ -33,7 +33,7 @@ x11_init(int width, int height)
         height,
         0,
         BlackPixel(display, screen),
-        WhitePixel(display, screen));
+        BlackPixel(display, screen));
 
     XSelectInput(
         display,
@@ -119,18 +119,33 @@ x11_draw(const Image *img)
         }
     }
 
+XWindowAttributes attr;
 
-    XPutImage(
-        display,
-        window,
-        gc,
-        ximg,
-        0,
-        0,
-        0,
-        0,
-        img->width,
-        img->height);
+XGetWindowAttributes(display, window, &attr);
+
+int x = (attr.width  - img->width)  / 2;
+int y = (attr.height - img->height) / 2;
+
+if (x < 0)
+    x = 0;
+
+if (y < 0)
+    y = 0;
+
+
+XClearWindow(display, window);
+
+XPutImage(
+    display,
+    window,
+    gc,
+    ximg,
+    0,
+    0,
+    x,
+    y,
+    img->width,
+    img->height);
 
 
     XFlush(display);
