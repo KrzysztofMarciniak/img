@@ -60,6 +60,20 @@ make clean
 
 Pass one or more image files as arguments. The viewer will load and display the first image.
 
+## Comparison with nsxiv
+
+`img` is significantly more lightweight than `nsxiv`, the popular X11 image viewer:
+
+| Metric | img | nsxiv |
+|--------|-----|-------|
+| Binary Size | ~12 KB | ~76 KB |
+| Text Section | 12,128 bytes | 75,791 bytes |
+| Data Section | 1,144 bytes | 7,296 bytes |
+| Total Size | 13,320 bytes | 88,983 bytes |
+| **Size Reduction** | **85% smaller** | — |
+
+While `nsxiv` provides a more feature-rich experience with additional functionality (like image navigation galleries, thumbnails, advanced keybindings), `img` prioritizes simplicity and minimal resource usage. Choose `img` if you want a straightforward, fast image viewer with minimal dependencies, or `nsxiv` if you need a full-featured image management tool.
+
 ## Project Structure
 
 - `main.c` - Entry point and event loop
