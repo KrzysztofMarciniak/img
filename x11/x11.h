@@ -16,6 +16,7 @@ bool x11_init(int width, int height);
 void x11_destroy(void);
 
 void x11_draw(const Image *img);
+
 Event x11_wait_event(void);
 
 #endif
