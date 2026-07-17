@@ -2,6 +2,10 @@
 
 A minimal, lightweight image viewer for X11 written in C99. Supports PNG, JPEG, and WebP formats.
 
+## Motivation
+
+I wanted something smaller than `feh` and `nsxiv`. Most image viewers are bloated with features you don't need. `img` is a no-frills image viewer that does one thing well: display images fast with minimal overhead.
+
 ## Features
 
 - Fast, minimal image viewer
@@ -60,19 +64,21 @@ make clean
 
 Pass one or more image files as arguments. The viewer will load and display the first image.
 
-## Comparison with nsxiv
+## Comparison with Other Viewers
 
-`img` is significantly more lightweight than `nsxiv`, the popular X11 image viewer:
+`img` is significantly more lightweight than popular X11 image viewers:
 
-| Metric | img | nsxiv |
-|--------|-----|-------|
-| Binary Size | ~12 KB | ~76 KB |
-| Text Section | 12,128 bytes | 75,791 bytes |
-| Data Section | 1,144 bytes | 7,296 bytes |
-| Total Size | 13,320 bytes | 88,983 bytes |
-| **Size Reduction** | **85% smaller** | — |
+| Viewer | Binary Size | Text Section | Total Size | Comparison |
+|--------|-------------|--------------|------------|------------|
+| **img** | **~12 KB** | **12,128 bytes** | **13,320 bytes** | — |
+| nsxiv | ~76 KB | 75,791 bytes | 88,983 bytes | 6.7× larger |
+| feh | ~169 KB | 173,180 bytes | 184,885 bytes | **13.9× larger** |
 
-While `nsxiv` provides a more feature-rich experience with additional functionality (like image navigation galleries, thumbnails, advanced keybindings), `img` prioritizes simplicity and minimal resource usage. Choose `img` if you want a straightforward, fast image viewer with minimal dependencies, or `nsxiv` if you need a full-featured image management tool.
+### When to Use Each
+
+- **img**: You want a straightforward, fast image viewer with minimal dependencies and overhead
+- **nsxiv**: You need a feature-rich viewer with image navigation, galleries, and advanced keybindings
+- **feh**: You need extensive customization, slideshow support, and complex image management features
 
 ## Project Structure
 
