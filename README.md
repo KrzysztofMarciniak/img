@@ -53,16 +53,24 @@ make WITH_PNG=1 WITH_JPEG=1 WITH_WEBP=1
 ```bash
 make clean
 ```
-
 ## Usage
-
 ```bash
 ./img image_file.png
 ./img image_file.jpg
 ./img image_file.webp
+./img image1.png image2.jpg image3.webp
+./img ~/Pictures/
 ```
+Pass one or more image files as arguments, or a directory to load every image inside it. The viewer displays the first image and lets you navigate, zoom, and pan from there.
 
-Pass one or more image files as arguments. The viewer will load and display the first image.
+### Keybindings
+| Key | Action |
+|-----|--------|
+| `h` / `l` / `j` / `k` | Pan left / right / up / down |
+| `Shift+h` / `Shift+l` | Previous / next image |
+| `+` / `-` | Zoom in / out |
+| `0` | Reset zoom |
+| `q` / `Esc` | Quit |
 
 ## Comparison with Other Viewers
 
@@ -70,15 +78,9 @@ Pass one or more image files as arguments. The viewer will load and display the 
 
 | Viewer | Binary Size | Text Section | Total Size | Comparison |
 |--------|-------------|--------------|------------|------------|
-| **img** | **~12 KB** | **12,128 bytes** | **13,320 bytes** | — |
-| nsxiv | ~76 KB | 75,791 bytes | 88,983 bytes | 6.7× larger |
-| feh | ~169 KB | 173,180 bytes | 184,885 bytes | **13.9× larger** |
-
-### When to Use Each
-
-- **img**: You want a straightforward, fast image viewer with minimal dependencies and overhead
-- **nsxiv**: You need a feature-rich viewer with image navigation, galleries, and advanced keybindings
-- **feh**: You need extensive customization, slideshow support, and complex image management features
+| **img** | **~16 KB** | **15,207 bytes** | **16,463 bytes** | - |
+| nsxiv | ~76 KB | 75,791 bytes | 88,983 bytes | 5.4 larger |
+| feh | ~169 KB | 173,180 bytes | 184,885 bytes | **11.2 larger** |
 
 ## Project Structure
 
