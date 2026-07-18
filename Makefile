@@ -34,5 +34,3 @@ static: $(TARGET)
 clean:
 	rm -f $(OBJ) $(TARGET)
 .PHONY: all static clean
-$
-
