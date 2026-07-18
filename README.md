@@ -22,6 +22,19 @@ I wanted something smaller than `feh` and `nsxiv`. Most image viewers are bloate
   - `libjpeg-dev` for JPEG support
   - `libwebp-dev` for WebP support
 
+### Prebuilt Static Binary
+
+From version `1.1` onward, a statically linked binary (`img-static-linux-x86_64`) is attached to each [release](https://github.com/KrzysztofMarciniak/img/releases), no dependencies required, just download and go to:
+
+## [Releases](https://github.com/KrzysztofMarciniak/img/releases)
+
+Download img-static-linux-x86_64
+
+```bash
+chmod +x img-static-linux-x86_64
+./img-static-linux-x86_64 image.png
+```
+
 ## Building
 
 ### Basic build (X11 only, no image formats)
