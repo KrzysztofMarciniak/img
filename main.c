@@ -37,6 +37,8 @@ main(int argc, char **argv)
 
     FileList files = {0};
     if (!files_collect(&files, argc - 1, argv + 1)) {
+	print_usage(argv[0]);
+	printf("\n");
         fprintf(stderr, "no images found\n");
         return EXIT_FAILURE;
     }
