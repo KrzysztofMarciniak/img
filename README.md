@@ -1,4 +1,6 @@
 # img
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/6f3e5af1-8005-4999-9c4e-5bceee1d35cb" />
+
 
 A minimal, lightweight image viewer for X11 written in C99. Supports PNG, JPEG, and WebP formats.
 
