@@ -36,38 +36,44 @@ Download img-static-linux-x86_64
 chmod +x img-static-linux-x86_64
 ./img-static-linux-x86_64 image.png
 ```
-
 ## Building
 
-### Basic build (X11 only, no image formats)
-```bash
+Build options are controlled by `config.mk`, which is included by the `Makefile`. By default, `config.mk` enables all three image formats:
+
+```make
+WITH_PNG = 1
+WITH_JPEG = 1
+WITH_WEBP = 1
+```
+
+So running the plain build command already builds with PNG, JPEG, and WebP support:
+
+```
 make
 ```
 
-### With PNG support
-```bash
-make WITH_PNG=1
+### Disabling a format
+
+To build without a given format, override the corresponding variable on the command line, e.g. to build without WebP:
+
+```
+make WITH_WEBP=0
 ```
 
-### With JPEG support
-```bash
-make WITH_JPEG=1
-```
+Or edit `config.mk` directly to change the defaults.
 
-### With WebP support
-```bash
-make WITH_WEBP=1
-```
+### Static build
 
-### With all format support
-```bash
-make WITH_PNG=1 WITH_JPEG=1 WITH_WEBP=1
+```
+make static
 ```
 
 ### Clean build artifacts
-```bash
+
+```
 make clean
 ```
+
 ## Usage
 ```bash
 ./img image_file.png
@@ -108,6 +114,36 @@ Pass one or more image files as arguments, or a directory to load every image in
 - `x11/` - X11 windowing and rendering
 - `files/` - File management utilities
 - `config.mk` - Build configuration
+
+## About the Code
+
+`img` is deliberately small: the whole program is built from four cooperating pieces, wired together in `main.c`.
+
+**Entry point (`main.c`)**
+
+The `main` function is a straight line with no hidden state:
+
+1. Parse arguments — at least one file path is required.
+2. `files_collect()` (from `files/files.c`) gathers the given paths into a `FileList`.
+3. `img_load()` (from `backend/backend.c`) decodes the first file into an in-memory `Image`.
+4. `x11_init()` opens an X11 window sized to the image.
+5. `x11_draw()` blits the decoded image to the window.
+6. A tiny event loop calls `x11_wait_event()`
+7. On exit, `img_free()`, `x11_destroy()`, and `files_free()` release everything that was allocated.
+
+There's no image cache, no multi-file navigation, and no configuration file to parse.
+
+**Backend interface (`backend/`)**
+
+`backend.h`/`backend.c` define a small dispatch layer: `img_load()` looks at the file and hands off to the matching decoder. Each format lives in its own subdirectory (`png/`, `jpeg/`, `webp/`) as an isolated backend that implements the same interface. This is what the `Makefile` conditionally compiles in:
+
+**X11 layer (`x11/`)**
+
+Handles window creation, image blitting, and the event loop primitives (`x11_init`, `x11_draw`, `x11_wait_event`, `x11_destroy`). This is the only part of the codebase that talks to Xlib directly, keeping windowing concerns out of `main.c` and the decoders.
+
+**File handling (`files/`)**
+
+`files_collect`/`files_free` turn the raw `argv` into a `FileList` structure and manage its lifetime. Currently minimal since `img` only displays the first file passed, but structured so multi-file support (e.g. next/previous) could be added without touching the backend or X11 layers.
 
 ## License
 
